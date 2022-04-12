@@ -16,11 +16,11 @@
 #
 # **WARNING** --- this script hasn't been extensively tested ; please make backups
 # of the directories you'll be using it in. it has only been tested with file numbers
-# under the 100s'
+# under the 1000s'
 # this script has been works on linux + bash, version 5.0.17(1)-release (x86_64-pc-linux-gnu)
 
 # matching the XML files
-rgx="^CAT_0+([1-9][0-9]*)\.xml$"
+rgx="^CAT_0+([1-9][0-9]*)(_clean|_tagged)?\.xml$"
 
 # looping through all the directories (matched with */)
 for dir in */ ; do
