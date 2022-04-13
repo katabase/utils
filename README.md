@@ -35,7 +35,7 @@ The script is supposed to be usable in all steps of the Katabase pipeline
 needs to be in the same folder as this script to work.
 - **how to**
 
-        ```shell
+        ```
         # have `jsontocsv.py` and `export.json` in the same directory
         python jsontocsv.py
 	```
