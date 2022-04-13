@@ -22,6 +22,7 @@
 #
 # EXPECTED DIRECTORY STRUCTURE
 # the script only works in a directory as follows (with extra files, obviously) :
+# $root
 # |_utils/
 # |   |_autopipeline.sh
 # |_1_OutputData/
@@ -32,8 +33,8 @@
 # |   |_script/
 # |       |_extractor_xml.py
 # |_3_TaggedData/
-# |   |_script/
-# |       |_extractor_json.py
+#     |_script/
+#         |_extractor_json.py
 
 
 root="$(readlink -e ..)"  # root / parent directory
