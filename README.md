@@ -34,8 +34,7 @@ The script is supposed to be usable in all steps of the Katabase pipeline
 **`jsontocsv.py`** : a python script to transform `export.json` (the json file obtained at the end of step `3_TaggedData`) in CSV format. `export.json` 
 needs to be in the same folder as this script to work.
 - **how to**
-
-        ```
+	```
         # have `jsontocsv.py` and `export.json` in the same directory
         python jsontocsv.py
 	```
