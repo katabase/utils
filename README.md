@@ -7,7 +7,7 @@
 output directories exist, a message informs the user that data might be overwritten and offers to delete those directories. Be careful not
 to delete anything too important, however.
 - **how to use it**
-	```bash
+	```shell
 	mkdir katabase  # create a folder to contain all repositories
 	cd katabase  # move in the proper directory
 	# clone all necessary repositories
@@ -34,7 +34,8 @@ The script is supposed to be usable in all steps of the Katabase pipeline
 **`jsontocsv.py`** : a python script to transform `export.json` (the json file obtained at the end of step `3_TaggedData`) in CSV format. `export.json` 
 needs to be in the same folder as this script to work.
 - **how to**
+
         ```shell 
-        # have `jsontocsv.py` and `export.json` in the same directory
-        python jsontocsv.py
+         # have `jsontocsv.py` and `export.json` in the same directory
+         python jsontocsv.py
 	```
