@@ -80,7 +80,7 @@ cd $root/1_OutputData
 if (( $(ls -d -1q *0* | wc -l) > 0 )) ; then  # if directories match the input pattern in 1_OutputData, run the script ; else, exit
   for dir in *0*/ ; do
     echo "* working with directory $dir *"
-    python script/clean_xml.py -d $dir
+    python script/clean_xml.py -d $dir || echo "* python error occured when working on $dir *" && exit 1
   done
 else
   echo "* No directories matching the pattern *0*. Exiting the script... *"
@@ -108,7 +108,9 @@ done
 echo "* Beginning step 2_CleanedData *"
 for dir in *0* ; do
   echo "* working with directory $dir *"
-  cd ./script && python extractor_xml.py ../$dir && cd ..
+  cd ./script
+  python extractor_xml.py ../$dir || echo "* python error occured when working on $dir *" && exit 1
+  cd ..
 done
 echo "* Step 2 done ! *"
 echo ""
@@ -131,5 +133,5 @@ done
 # ----- STEP 3_TaggedData ----- #
 echo "* Beginning step 3_TaggedData *"
 cd $root/3_TaggedData/script
-python3 extractor_json.py
+python3 extractor_json.py || echo "* python error occured when working on $dir *" && exit 1
 echo "* Step 3 done ! *"
