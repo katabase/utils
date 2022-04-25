@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-# bash script to run the whole pipeline (1_OutputData, 2_CleanedData, 3_TaggedData)
+# bash script to run the whole pipeline (1_OutputData, 2_CleanedData, 3_TaggedData, Application)
 #
 # HOW TO USE :
 # - all the directories used must be at the root of the same folder (named $root afterwards)
@@ -33,13 +33,14 @@
 # |   |_script/
 # |       |_extractor_xml.py
 # |_3_TaggedData/
-#     |_script/
-#         |_extractor_json.py
+# |   |_script/
+# |      |_extractor_json.py
+# |_Application/
 
 
 root="$(readlink -e ..)"  # root / parent directory
 rgx="^([0-9]+-[0-9]+)(_clean|_tagged)?/?$"  # regex to match the directories
-paths=($root/1_OutputData/output $root/2_CleanedData/*0* $root/2_CleanedData/output $root/3_TaggedData/Catalogues/*0* $root/3_TaggedData/output)  # output directories
+paths=($root/1_OutputData/output $root/2_CleanedData/*0* $root/2_CleanedData/output $root/3_TaggedData/Catalogues/*0* $root/3_TaggedData/output $root/Application/APP/data/json $root/Application/APP/data)  # output directories
 paths_todel=()  # array of output paths to delete in order to run the script
 
 
@@ -78,9 +79,13 @@ echo "* Beginning step 1_OutputData *"
 # launching the python script
 cd $root/1_OutputData
 if (( $(ls -d -1q *0* | wc -l) > 0 )) ; then  # if directories match the input pattern in 1_OutputData, run the script ; else, exit
-  for dir in *0*/ ; do
+  for dir in *0* ; do
     echo "* working with directory $dir *"
-    python script/clean_xml.py -d $dir || echo "* python error occured when working on $dir *" && exit 1
+    python script/clean_xml.py -d $dir
+    if [ $? != 0 ]; then  # if there is an error, stop the script ; in that case, the xml files need to be corrected
+      echo "* python error occured when working on $dir *"
+      exit 1
+    fi
   done
 else
   echo "* No directories matching the pattern *0*. Exiting the script... *"
@@ -109,7 +114,11 @@ echo "* Beginning step 2_CleanedData *"
 for dir in *0* ; do
   echo "* working with directory $dir *"
   cd ./script
-  python extractor_xml.py ../$dir || echo "* python error occured when working on $dir *" && exit 1
+  python extractor_xml.py ../$dir
+  if [ $? != 0 ]; then  # if there is an error, stop the script ; in that case, the xml files need to be corrected
+    echo "* python error occured when working on $dir *"
+    exit 1
+  fi
   cd ..
 done
 echo "* Step 2 done ! *"
@@ -133,5 +142,29 @@ done
 # ----- STEP 3_TaggedData ----- #
 echo "* Beginning step 3_TaggedData *"
 cd $root/3_TaggedData/script
-python3 extractor_json.py || echo "* python error occured when working on $dir *" && exit 1
+python3 extractor_json.py
+if [ $? != 0 ]; then  # if there is an error, stop the script ; in that case, the xml files need to be corrected
+  echo "* python error occured when working on $dir *"
+  exit 1
+fi
 echo "* Step 3 done ! *"
+
+
+# ----- moving the final files to Application ----- #
+echo "* Moving the files to Application *"
+cd $root
+data=$root/Application/APP/data
+json=$root/Application/APP/data/json
+
+# make the destination directories if they don't aldready exist
+if [ ! -d $data ]; then
+  mkdir $data
+fi
+
+if [ ! -d $json ]; then
+  mkdir $json
+fi
+
+cp 3_TaggedData/Catalogues/*0*/*_tagged.xml Application/APP/data
+cp 3_TaggedData/output/export.json Application/APP/data/json
+echo "* Done ! *"
