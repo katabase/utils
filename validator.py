@@ -13,6 +13,9 @@ n = 0
 # XPATH : target = root.xpath(".//tei:bibl", namespaces=ns)
 
 
+# SEE README.md OF THIS REPOSITORY FOR A LIST OF # NECESSARY # ENHANCEMENTS
+
+
 @click.group()
 def validator():
     """

@@ -46,6 +46,15 @@ in RNG format (`_schemas/odd_katabase.rng`)
 the files are "problematic" (they can't easily be corrected from the
 CLI), they are moved to `out_a_corriger` ; if the files are valid from
 the start and corrected by the user, they are moved to `out_clean`
+- **before using this script, several enhancements are necessary** :
+	- allow a `tei:item` to have more than one `tei:desc` : currently, if an
+item has more than one `tei:desc`, it is moved to `out_a_corriger`, despite this
+being a valid situation. instead, if a `tei:item//tei:name` has no `@type` 
+attribute, all the `tei:desc`s should be printed before the user is prompted to give
+an `@type` attribute (faulty line : `if len(name) != len(context):`)
+	- if `tei:bibl//tei:date`` is empty, prompt the user to add a date 
+using the `@when` or `@from` and `@to` of this element (no date causes an error 
+when launching the website)
 - **how to**
     ```shell
 	cp utils/validator.py New_OutputData  # copy the script in the proper directory
