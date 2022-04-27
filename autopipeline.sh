@@ -166,5 +166,5 @@ if [ ! -d $json ]; then
 fi
 
 cp 3_TaggedData/Catalogues/*0*/*_tagged.xml Application/APP/data
-cp 3_TaggedData/output/export.json Application/APP/data/json
+cp 3_TaggedData/output/export*.json Application/APP/data/json
 echo "* Done ! *"
