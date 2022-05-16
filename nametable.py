@@ -31,6 +31,7 @@ def csvbuilder():
         os.makedirs("nametable_out")
     with open("nametable_out/nametable.csv", mode="w", encoding="utf-8") as out:
         writer = csv.writer(out, delimiter="\t", quotechar="\"")
+        writer.writerow(["xml id", "wikidata id", "name", "trait"])
         for f in input_f:
             tree = etree.parse(f)
             for item in tree.xpath("//tei:body//tei:item", namespaces=ns):

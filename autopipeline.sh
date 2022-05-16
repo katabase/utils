@@ -142,6 +142,7 @@ done
 # ----- STEP 3_TaggedData ----- #
 echo "* Beginning step 3_TaggedData *"
 cd $root/3_TaggedData/script
+python3 priceconv.py
 python3 extractor_json.py
 if [ $? != 0 ]; then  # if there is an error, stop the script ; in that case, the xml files need to be corrected
   echo "* python error occured when working on $dir *"

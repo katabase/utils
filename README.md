@@ -16,7 +16,10 @@ to delete anything too important, however.
 	git clone https://github.com/katabase/2_CleanedData.git
 	git clone https://github.com/katabase/3_TaggedData.git
 	git clone https://github.com/katabase/Application.git
+	python3 -m venv env  # create a python virtual environment
+	source env/bin/activate  # activate the virtualenv
 	cd utils  # move in the utils directory
+	pip install -r req_full.txt  # install the necessary librairies
 	bash autopipeline.sh  # launch the script
 	```
 
@@ -72,3 +75,31 @@ needs to be in the same folder as this script to work.
         # have `jsontocsv.py` and `export.json` in the same directory
         python jsontocsv.py
 	```
+
+---
+
+**`nametable.py`** : a python script to build a csv of names in the corpus in order to align names with a wikidata id.
+- **tsv structure**: 
+	- `xml id` : the `@xml:id` of the `tei:item` in which the name is found
+	- `wikidata id` : the wikidata identifier of a person / subject
+	- `name` : the `tei:name` in catalogue entries: the `tei:name` can be the name of a person, but also a historical period, a subject...
+	- `trait` : the `tei:trait` element, used to describe the information in `tei:name`
+	- the same names can and will be found several times in the different catalogues
+- **how to**:
+	- expected file structure:
+	```
+	root_directory/
+	 |_utils/
+	 |  |_nametable.py
+	 |_1_OutputData/
+	    |_*0*  # the catalogues folders: 1-100, 101-200...
+	```
+	- run the script:
+	```shell
+	cd utils
+	python nametable.py
+	```
+
+---
+
+**`full_req.txt`** : a list of python packages to be able to work on the whole pipeline
