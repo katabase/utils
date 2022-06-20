@@ -39,6 +39,21 @@ The script is supposed to be usable in all steps of the Katabase pipeline
  
 ---
 
+**`rename_escriptorium.sh`** : a bash script to rename `xml` and `png` 
+files downloaded from eScriptorium. 
+- **functionning** : the files downloaded from eScriptorium all 
+follow this structure: `filename_of_file_uploaded_to_escriptorium_page_N.xml`.
+we rename the files by changing the input filename to an identifier chosen
+by the user and modifying the way a page number is written.
+- **example**: `CAT_000432.pdf_page_1.xml` becomes `1890_01_16_CHA_001.xml`
+- **how to**:
+	```shell
+	# be in a directory with all the escriptorium files and this script
+	bash rename_escriptorium.sh
+	```
+
+---
+
 **`validator.py`** : a python command line interface to validate
 and correct the XML files in `New_OutputData`. Those files are
 not clean; some of them aren't following the specifications of
@@ -102,4 +117,5 @@ needs to be in the same folder as this script to work.
 
 ---
 
-**`full_req.txt`** : a list of python packages to be able to work on the whole pipeline
+**`req_full.txt`** : a list of python packages to be able to work 
+on the whole pipeline
