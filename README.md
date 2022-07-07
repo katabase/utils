@@ -117,5 +117,6 @@ needs to be in the same folder as this script to work.
 
 ---
 
-**`req_full.txt`** : a list of python packages to be able to work 
-on the whole pipeline
+**`full_requirements.txt`** : a list of python packages to be able to work 
+on the whole pipeline (by creating a single python virutalenv for the 4 first steps,
+the web application, all scripts on the utils and visualisation repositories).
