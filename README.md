@@ -6,6 +6,7 @@
 **`autopipeline.sh`** : a bash script to run the whole pipeline. The script checks if the directories used as inputs and outputs exists ; if
 output directories exist, a message informs the user that data might be overwritten and offers to delete those directories. Be careful not
 to delete anything too important, however.
+- **it is not up to date** and dates from before `3_WikidataEnrichment` was created
 - **how to use it**
 	```shell
 	mkdir katabase  # create a folder to contain all repositories
@@ -86,7 +87,7 @@ when launching the website)
 **`jsontocsv.py`** : a python script to transform `export.json` (the json file obtained at the end of step `3_TaggedData`) in CSV format. `export.json` 
 needs to be in the same folder as this script to work.
 - **how to**
-	```
+	```shell
         # have `jsontocsv.py` and `export.json` in the same directory
         python jsontocsv.py
 	```
@@ -116,6 +117,14 @@ needs to be in the same folder as this script to work.
 	```
 
 ---
+
+**`rm_suffix.sh`** : delete the suffixes from all `xml` catalogues in a directory 
+(`CAT_000101_wd.xml` => `CAT_000101.xml`)
+
+- **how to**: once you are in a directory with xml catalogue files:
+	```shell
+	bash rm_suffix.sh
+	```
 
 **`full_requirements.txt`** : a list of python packages to be able to work 
 on the whole pipeline (by creating a single python virutalenv for the 4 first steps,
